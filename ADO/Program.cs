@@ -17,7 +17,10 @@ namespace ADO
             string cmd = "SELECT title,year, first_name, last_name FROM Movies JOIN Directors ON(director=director_id)";
             
             Connector connector = new Connector(connection_string);
-            connector.Select(cmd);
+            connector.Select("title, year, first_name, last_name", "Movies,Directors", "director=director_id");
+            Console.WriteLine("\n------------------ -\n");
+            connector.Insert("Directors", "6,N'Tarantino',N'Quentin'");//добавляем режиссера
+            connector.Select("*", "Directors");
         }
     }
 }
