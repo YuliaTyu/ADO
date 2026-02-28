@@ -17,12 +17,8 @@ namespace ADO
             this.connection_string = connection_string;
             this.connection = new SqlConnection(connection_string);
         }
-        public void Select(string fields, string tables, string condition = "")
+        public void Select(string cmd)
         {
-            string cmd = $"SELECT {fields} FROM {tables}";
-            if (condition != "") cmd += $" WHERE {condition}";
-            cmd += ";";
-
             //открываем соединение
             connection.Open();
             SqlCommand command = new SqlCommand(cmd, connection);
@@ -44,15 +40,51 @@ namespace ADO
             //закрваем соединение
             connection.Close();
         }
-        //вставить поле с режиссером
-        public void Insert(string table, string values)
+        public void Select(string fields, string tables, string condition = "")
         {
-            string cmd = $"INSERT INTO {table} VALUES ({values})";
+            string cmd = $"SELECT {fields} FROM {tables}";
+            if (condition != "") cmd += $" WHERE {condition}";
+            cmd += ";";
+            Select(cmd);
+
+        }
+        
+        //вставить поле с режиссером
+        public void Insert(string cmd)
+        {
             connection.Open();
             SqlCommand command = new SqlCommand(cmd, connection);
             command.ExecuteNonQuery();
-
             connection.Close();
+        }
+        public void Insert(string table, string values)
+        {
+            string cmd = $"INSERT INTO {table} VALUES ({values})";
+            Insert(cmd);
+        }
+        public object Scalar(string cmd)//скалярный запрос - вытаскивающий из базы одно значение
+        {
+            SqlCommand command = new SqlCommand(cmd, connection);
+            connection.Open();
+            //int value = Convert.ToInt32(command.ExecuteScalar());
+            object value = command.ExecuteScalar();
+            connection.Close();
+            return value;
+        }
+        public string GetPrimaryKeyColumn(string table)
+        {
+            return (string)Scalar
+                (
+                $"SELECT\tCOLUMN_NAME FROM\tINFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE WHERE\tCONSTRAINT_NAME=(SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME=N'{table}' AND CONSTRAINT_TYPE=N'PRIMARY KEY');"
+                );
+        }
+        public int GetLastPrimaryKey(string table)
+        {
+            return Convert.ToInt32(Scalar($"SELECT MAX({GetPrimaryKeyColumn(table)}) FROM {table}"));
+        }
+        public int GetNextPrimaryKey(string table)//узнаем имя первичного ключа
+        {
+            return GetLastPrimaryKey(table) + 1;
         }
     }
 }
