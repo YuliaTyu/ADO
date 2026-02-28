@@ -49,7 +49,7 @@ namespace ADO
 
         }
         
-        //вставить поле с режиссером
+        //вставить поле с режиссером - ЗАДВОЕНИЕ ЗАПИСИ!!!! ПРЕДОТВРАТИТЬ НЕОБХОДИМО в программ не иделален код
         public void Insert(string cmd)
         {
             connection.Open();
@@ -59,7 +59,8 @@ namespace ADO
         }
         public void Insert(string table, string values)
         {
-            string cmd = $"INSERT INTO {table} VALUES ({values})";
+            string cmd =            
+                $"INSERT INTO {table} VALUES ({values})";
             Insert(cmd);
         }
         public object Scalar(string cmd)//скалярный запрос - вытаскивающий из базы одно значение
@@ -86,5 +87,14 @@ namespace ADO
         {
             return GetLastPrimaryKey(table) + 1;
         }
+
+        public void Update(string cmd)
+        {
+            SqlCommand command = new SqlCommand(cmd, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
     }
 }

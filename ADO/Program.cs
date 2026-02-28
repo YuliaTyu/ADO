@@ -27,7 +27,10 @@ namespace ADO
             Console.WriteLine(connector.GetLastPrimaryKey(table));
             Console.WriteLine(connector.GetPrimaryKeyColumn(table));
 
-            connector.Insert("Directors", $"{connector.GetNextPrimaryKey("Directors")},N'Besson',N'Luc'");//добавляем режиссера!!!!!!!!!!!
+            connector.Insert($"IF NOT EXISTS (SELECT * FROM Directors WHERE last_name=N'Besson' AND first_name=N'Luc') " +
+                $"INSERT Directors VALUES({connector.GetNextPrimaryKey("Directors")},N'Besson',N'Luc')");//запись не дублируется!!! но код не идеален
+            //connector.Insert("Directors", $"{connector.GetNextPrimaryKey("Directors")},N'Besson',N'Luc'");//добавляем режиссера!!!!!!!!!!!
+            connector.Update("UPDATE Directors SET last_name=N'Lettich',first_name=N'Sheldon' WHERE director_id=8");
             connector.Select("*", "Directors");
             Console.WriteLine("\n------------------ -\n");
             connector.Select(cmd);
