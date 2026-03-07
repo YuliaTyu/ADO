@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Data.SqlClient;
-
-namespace ADO
+namespace Connector
 {
-    internal class Connector
+    public class Connector
     {
         string connection_string;
         SqlConnection connection;
@@ -49,7 +48,7 @@ namespace ADO
 
         public string GetTableFromInsert(string cmd)
         {
-            string[]parts = cmd.Split(' ', '(', ')');
+            string[] parts = cmd.Split(' ', '(', ')');
             return parts[1];
         }
         public string GetFieldsFromInsert(string cmd)
@@ -97,7 +96,7 @@ namespace ADO
         }
         public object GetPrimaryKey(string cmd)
         {
-           SqlCommand command = new SqlCommand(cmd,connection);
+            SqlCommand command = new SqlCommand(cmd, connection);
             connection.Open();
             object primary_key = command.ExecuteScalar();
             connection.Close();
@@ -109,12 +108,12 @@ namespace ADO
             string[] s_values = values.Split(',');
             if (s_fields.Length != s_values.Length) return null;
             string condition = "";
-            for(int i = 0; i< s_values.Length; i++)
+            for (int i = 0; i < s_values.Length; i++)
             {
                 if (s_fields[i].Contains("_id")) continue;
                 string value = s_values[i].Trim();
-                condition += 
-                    (value.Length > 1 && value[0] != 'N' && value[1]!= '\'')
+                condition +=
+                    (value.Length > 1 && value[0] != 'N' && value[1] != '\'')
                     ? $"{s_fields[i].Trim()}=N'{s_values[i].Trim()}'"
                     : $"{s_fields[i].Trim()}={s_values[i].Trim()}";
                 if (i != s_values.Length - 1) condition += " AND ";
@@ -137,6 +136,7 @@ namespace ADO
             command.ExecuteNonQuery();
             connection.Close();
         }
-        
+
     }
 }
+

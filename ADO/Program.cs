@@ -18,8 +18,7 @@ namespace ADO
             
             Connector connector = new Connector(connection_string);
             connector.Select("title,year,first_name,last_name","Movies,Directors","director=director_id");
-            Console.WriteLine("\n------------------ -\n");
-
+            Console.WriteLine("\n------------------------------------------------------\n");
             //Console.WriteLine(connector.Scalar("SELECT MAX(director_id)FROM Directors"));
 
             string table = "Movies";
@@ -27,15 +26,21 @@ namespace ADO
             Console.WriteLine(connector.GetLastPrimaryKey(table));
             Console.WriteLine(connector.GetPrimaryKeyColumn(table));
 
-            connector.Insert($"IF NOT EXISTS (SELECT * FROM Directors WHERE last_name=N'Besson' AND first_name=N'Luc') " +
-                $"INSERT Directors VALUES({connector.GetNextPrimaryKey("Directors")},N'Besson',N'Luc')");//запись не дублируется!!! но код не идеален
+            //connector.Insert($"IF NOT EXISTS (SELECT * FROM Directors WHERE last_name=N'Besson' AND first_name=N'Luc') " +
+            //    $"INSERT Directors VALUES({connector.GetNextPrimaryKey("Directors")},N'Besson',N'Luc')");//запись не дублируется!!! но код не идеален
             //connector.Insert("Directors", $"{connector.GetNextPrimaryKey("Directors")},N'Besson',N'Luc'");//добавляем режиссера!!!!!!!!!!!
             connector.Update("UPDATE Directors SET last_name=N'Lettich',first_name=N'Sheldon' WHERE director_id=8");
             connector.Select("*", "Directors");
-            Console.WriteLine("\n------------------ -\n");
+            Console.WriteLine("\n-----------------------------------------------------\n");
             connector.Select(cmd);
 
+            Console.WriteLine(connector.GetPrimaryKey("SELECT director_id FROM Directors WHERE last_name=N'Cameron' AND first_name=N'James'"));
+            Console.WriteLine(connector.GetPrimaryKey("Directors","last_name,first_name","Cameron,James"));
+            Console.WriteLine(connector.GetPrimaryKey("Movies", " title, director", "The Heat, 5"));
+            Console.WriteLine(connector.GetPrimaryKey("Movies", " title, year", "The Heat, 1995-12-15"));
 
+            connector.Insert 
+                ($"INSERT Directors(director_id,first_name,last_name) VALUES({connector.GetNextPrimaryKey("Directors")},N'George',N'Martin')");
         }
     }
 }
