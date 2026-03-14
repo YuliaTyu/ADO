@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Connector
 {
@@ -16,33 +18,40 @@ namespace Connector
             this.connection_string = connection_string;
             this.connection = new SqlConnection(connection_string);
         }
-        public void Select(string cmd)
+        public DataTable Select(string cmd)//DataTable = возвращает значение в таблицу!!!
         {
+            DataTable table = new DataTable(); ;
             //открываем соединение
             connection.Open();
             SqlCommand command = new SqlCommand(cmd, connection);
             //прочитать данные из базы - открываем reader
             SqlDataReader reader = command.ExecuteReader();
+            for (int i = 0; i < reader.FieldCount; i++)
+                table.Columns.Add(reader.GetName(i));
             while (reader.Read())
             {
+                DataRow row = table.NewRow();//создали строку
                 //Console.WriteLine($"{reader[0]}\t{reader[1]}\t{reader[2]}");//если занем скольк полей
                 for (int i = 0; i < reader.FieldCount; i++)//если не занем сколько полей
                 {
+                    row[i] = reader[i];//запрлнили строку данными
                     Console.Write(reader[i].ToString().PadRight(29));
                 }
                 Console.WriteLine();
+                table.Rows.Add(row);//выводим строку с данными
             }
             //зарываем reader
             reader.Close();
             //закрваем соединение
             connection.Close();
+            return table;
         }
-        public void Select(string fields, string tables, string condition = "")
+        public DataTable Select(string fields, string tables, string condition = "")
         {
             string cmd = $"SELECT {fields} FROM {tables}";
             if (condition != "") cmd += $" WHERE {condition}";
             cmd += ";";
-            Select(cmd);
+            return Select(cmd);
         }
         //вставить поле с режиссером!!!! 
 
