@@ -15,7 +15,7 @@ namespace CheckConnector
             //string connection_string = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Movies_SPU_411;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             string connection_string = "Data Source=DESKTOP-LDN2BMM\\SQLEXPRESS;Initial Catalog=SPU_411_Import;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             Connector.Connector connector = new Connector.Connector(connection_string);
-            connector.Select("SELECT * FROM Directions");
+            connector.Select("SELECT * FROM Groups");
         }
     }
 }
