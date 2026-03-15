@@ -15,10 +15,11 @@ namespace Academy
 {
     public partial class MainForm : Form
     {
+        DataGridView[] tables = null;
         Query[] queries =
         {
             new Query
-                ("Stutents,Groups,Directions",
+                ("Students,Groups,Directions",
                 "last_name,first_name,middle_name,group_name,direction_name",
                 "[group]=group_id AND direction=direction_id"),
             new Query
@@ -29,12 +30,21 @@ namespace Academy
             new Query("Disciplines","*"),
             new Query("Teachers","*"),
         };
+        string[] statusBarSignatures =
+        {
+            "Количество студентов",
+            "Количесвто групп",
+            "Количество направлений",
+            "Количество дисциплин",
+            "Количество преподователей"  
+        }; 
         DBtools.Connector connector;
         //DBtools.Connector movies_connector;
         
         public MainForm()
         {
             InitializeComponent();
+            tables = new DataGridView[]{dgvStudents,dgvGroups,dgvDirections,dgvDisciplines,dgvTeachers};
             AllocConsole();
             connector = new DBtools.Connector("Data Source=DESKTOP-LDN2BMM\\SQLEXPRESS;Initial Catalog=SPU_411_Import;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             //movies_connector = new Connector("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Movies_SPU_411;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
@@ -46,11 +56,14 @@ namespace Academy
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Console.WriteLine($"{(sender as TabControl).SelectedIndex}\t{tabControl.SelectedTab.Text}");
-            DataGridView dgv = (this.GetType().GetField($"dgv{tabControl.SelectedTab.Text}").GetValue(this) as DataGridView);
             //dgvDirections.DataSource = connector.Select("SELECT * FROM Directions");
             //toolStripStatusLabel.Text = $"Количество направлений обучения:{dgvDirections.RowCount - 1}";
-            dgv.DataSource = connector.Select($"SELECT * FROM {tabControl.SelectedTab.Text}");
-            toolStripStatusLabel.Text = $"Количество записей:{dgv.RowCount - 1}";
+            //DataGridView dgv = (this.GetType().GetField($"dgv{tabControl.SelectedTab.Text}").GetValue(this) as DataGridView);
+            //dgv.DataSource = connector.Select($"SELECT * FROM {tabControl.SelectedTab.Text}");
+            //toolStripStatusLabel.Text = $"Количество записей:{dgv.RowCount - 1}";
+            int i = tabControl.SelectedIndex;
+            tables[tabControl.SelectedIndex].DataSource = connector.Select(queries[tabControl.SelectedIndex].ToString());
+            toolStripStatusLabel.Text = $"{statusBarSignatures[i]}: {tables[i].RowCount - 1}";
         }
     }
 }
