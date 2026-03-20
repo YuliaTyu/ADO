@@ -65,5 +65,29 @@ namespace Academy
             tables[tabControl.SelectedIndex].DataSource = connector.Select(queries[tabControl.SelectedIndex].ToString());
             toolStripStatusLabel.Text = $"{statusBarSignatures[i]}: {tables[i].RowCount - 1}";
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string filterText = button1.Text.Trim();
+            //if(string.IsNullOrEmpty(filterText) )
+            //{
+            //    bindingSource.Filter = null;
+            //}
+            //else
+            //{
+            //    bindingSource.Filter = $"Students LIKE '%{filterText}'";
+            //}
+        }
+
+        private void comboBoxColumns_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = comboBoxColumns.SelectedIndex;
+            if(comboBoxColumns.SelectedItem != null )
+            {
+                string selectedColumn = comboBoxColumns.SelectedItem.ToString();
+               
+              
+            }
+        }
     }
 }
