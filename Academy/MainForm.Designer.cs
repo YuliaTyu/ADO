@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageStudents = new System.Windows.Forms.TabPage();
+            this.comboBoxColumns = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.dgvStudents = new System.Windows.Forms.DataGridView();
             this.tabPageGroups = new System.Windows.Forms.TabPage();
             this.dgvGroups = new System.Windows.Forms.DataGridView();
@@ -43,9 +45,7 @@
             this.dgvTeachers = new System.Windows.Forms.DataGridView();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.button1 = new System.Windows.Forms.Button();
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBoxColumns = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabPageStudents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
@@ -90,6 +90,25 @@
             this.tabPageStudents.TabIndex = 0;
             this.tabPageStudents.Text = "Students";
             this.tabPageStudents.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxColumns
+            // 
+            this.comboBoxColumns.FormattingEnabled = true;
+            this.comboBoxColumns.Location = new System.Drawing.Point(586, 51);
+            this.comboBoxColumns.Name = "comboBoxColumns";
+            this.comboBoxColumns.Size = new System.Drawing.Size(197, 21);
+            this.comboBoxColumns.TabIndex = 2;
+            this.comboBoxColumns.SelectedIndexChanged += new System.EventHandler(this.comboBoxColumns_SelectedIndexChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(586, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(197, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Filter";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dgvStudents
             // 
@@ -206,25 +225,6 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(112, 17);
             this.toolStripStatusLabel.Text = "toolStripStatusLabel";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(586, 31);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(197, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Filter";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // comboBoxColumns
-            // 
-            this.comboBoxColumns.FormattingEnabled = true;
-            this.comboBoxColumns.Location = new System.Drawing.Point(586, 50);
-            this.comboBoxColumns.Name = "comboBoxColumns";
-            this.comboBoxColumns.Size = new System.Drawing.Size(197, 21);
-            this.comboBoxColumns.TabIndex = 2;
-            this.comboBoxColumns.SelectedIndexChanged += new System.EventHandler(this.comboBoxColumns_SelectedIndexChanged);
             // 
             // MainForm
             // 
