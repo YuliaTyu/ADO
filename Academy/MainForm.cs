@@ -40,7 +40,9 @@ namespace Academy
         }; 
         DBtools.Connector connector;
         //DBtools.Connector movies_connector;
-        
+
+        Dictionary<string, int> d_directions = null;
+        Dictionary<string, Dictionary<string, int>> d_trees = null;
         public MainForm()
         {
             InitializeComponent();
@@ -50,9 +52,30 @@ namespace Academy
             //movies_connector = new Connector("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Movies_SPU_411;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             //dgvDirections.DataSource = movies_connector.Select("SELECT * FROM Directors;");
             tabControl_SelectedIndexChanged(tabControl, null);
+
+            d_trees = new Dictionary<string, Dictionary<string, int>>();
+            d_trees.Add(nameof(d_directions), d_directions);
+            LoadDataToComboBox(cbGroupsDirection);
+            LoadDataToComboBox(cbStudentsGroup);
+            LoadDataToComboBox(cbStudentsDirection);
+            LoadDataToComboBox(cbDisciplinesDirection);
         }
         [DllImport("kernel32.dll")]
         public static extern bool AllocConsole();
+        void LoadDataToComboBox(ComboBox comboBox)
+        {
+            string table = comboBox.Name.Substring(Array.FindLastIndex<char>(comboBox.Name.ToCharArray(), Char.IsUpper))+"s";
+            string dictionary_name = $"d_{table}".ToLower();
+            Console.WriteLine("\n--------------------------------------\n");
+            Console.WriteLine(table);
+            Console.WriteLine("\n--------------------------------------\n");
+
+            d_trees[dictionary_name] = connector.LoadDictionary(table);
+            foreach(KeyValuePair<string, int> i in d_trees[dictionary_name])
+            {
+                comboBox.Items.Add(i.Key);
+            }
+        }
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Console.WriteLine($"{(sender as TabControl).SelectedIndex}\t{tabControl.SelectedTab.Text}");
@@ -65,5 +88,6 @@ namespace Academy
             tables[tabControl.SelectedIndex].DataSource = connector.Select(queries[tabControl.SelectedIndex].ToString());
             toolStripStatusLabel.Text = $"{statusBarSignatures[i]}: {tables[i].RowCount - 1}";
         }
+
     }
 }
