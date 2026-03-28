@@ -46,6 +46,7 @@
             this.dgvTeachers = new System.Windows.Forms.DataGridView();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.buttonAdd = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageStudents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
@@ -79,6 +80,7 @@
             // 
             // tabPageStudents
             // 
+            this.tabPageStudents.Controls.Add(this.buttonAdd);
             this.tabPageStudents.Controls.Add(this.cbStudentsDirection);
             this.tabPageStudents.Controls.Add(this.cbStudentsGroup);
             this.tabPageStudents.Controls.Add(this.dgvStudents);
@@ -247,6 +249,16 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(112, 17);
             this.toolStripStatusLabel.Text = "toolStripStatusLabel";
             // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(666, 3);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 3;
+            this.buttonAdd.Text = "Добавить";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,6 +306,7 @@
         private System.Windows.Forms.ComboBox cbStudentsGroup;
         private System.Windows.Forms.ComboBox cbStudentsDirection;
         private System.Windows.Forms.ComboBox cbDisciplinesDirection;
+        private System.Windows.Forms.Button buttonAdd;
     }
 }
 
