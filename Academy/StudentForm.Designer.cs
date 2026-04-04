@@ -39,7 +39,7 @@
             // 
             this.labelGroup.AutoSize = true;
             this.labelGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelGroup.Location = new System.Drawing.Point(55, 266);
+            this.labelGroup.Location = new System.Drawing.Point(54, 315);
             this.labelGroup.Name = "labelGroup";
             this.labelGroup.Size = new System.Drawing.Size(78, 24);
             this.labelGroup.TabIndex = 11;
@@ -47,9 +47,10 @@
             // 
             // cbStudentsGroup
             // 
+            this.cbStudentsGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStudentsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cbStudentsGroup.FormattingEnabled = true;
-            this.cbStudentsGroup.Location = new System.Drawing.Point(134, 262);
+            this.cbStudentsGroup.Location = new System.Drawing.Point(134, 324);
             this.cbStudentsGroup.Name = "cbStudentsGroup";
             this.cbStudentsGroup.Size = new System.Drawing.Size(200, 32);
             this.cbStudentsGroup.TabIndex = 12;
@@ -88,6 +89,14 @@
             this.Controls.Add(this.labelGroup);
             this.Name = "StudentForm";
             this.Text = "Student";
+            this.Controls.SetChildIndex(this.rtbEmail, 0);
+            this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.rtbPhone, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
+            this.Controls.SetChildIndex(this.rtbLastName, 0);
+            this.Controls.SetChildIndex(this.rtbFirstName, 0);
+            this.Controls.SetChildIndex(this.rtbMiddleName, 0);
+            this.Controls.SetChildIndex(this.dtpBirthDate, 0);
             this.Controls.SetChildIndex(this.pictureBoxPhoto, 0);
             this.Controls.SetChildIndex(this.buttonPhoto, 0);
             this.Controls.SetChildIndex(this.labelBirthDate, 0);
