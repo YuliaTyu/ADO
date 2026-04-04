@@ -49,5 +49,9 @@ namespace Academy.Models
         {
             return $"N'{last_name}',N'{first_name}',N'{middle_name}',N'{birth_date}',N'{email}',N'{phone}'";
         }
+        public virtual string ToStringUpdate()
+        {
+            return $"last_name=N'{last_name}',first_name=N'{first_name}',middle_name=N'{middle_name}',birth_date=N'{birth_date}',email=N'{email}',phone=N'{phone}'";
+        }
     }
 }

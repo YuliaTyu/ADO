@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
+using System.Drawing;
 namespace DBtools
 {
     public class Connector
@@ -173,6 +174,27 @@ namespace DBtools
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+        }
+        public Image DownloadPhoto(int id, string table, string field)
+        {
+            Image photo = null;
+            string cmd = $"SELECT {field} FROM {table} WHERE {GetPrimaryKeyColumn(table)}={id}";
+            SqlCommand command = new SqlCommand(cmd, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            
+            if (reader.Read())
+            {
+                byte[] data = reader[0] as byte[];
+                if (data != null)
+                {
+                    MemoryStream ms = new MemoryStream(reader[0] as byte[]);
+                    photo = Image.FromStream(ms);
+                }
+            }
+            reader.Close();
+            connection.Close();
+            return photo;
         }
     }
 }

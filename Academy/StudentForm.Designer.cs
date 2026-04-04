@@ -35,6 +35,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).BeginInit();
             this.SuspendLayout();
             // 
+            // pictureBoxPhoto
+            // 
+            this.pictureBoxPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            // 
             // labelGroup
             // 
             this.labelGroup.AutoSize = true;
@@ -89,6 +93,7 @@
             this.Controls.Add(this.labelGroup);
             this.Name = "StudentForm";
             this.Text = "Student";
+            this.Controls.SetChildIndex(this.labelID, 0);
             this.Controls.SetChildIndex(this.rtbEmail, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.rtbPhone, 0);

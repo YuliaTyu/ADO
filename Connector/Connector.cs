@@ -5,7 +5,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Drawing;
+using System.IO;
 
 namespace Connector
 {
@@ -145,6 +146,7 @@ namespace Connector
             command.ExecuteNonQuery();
             connection.Close();
         }
+        
 
     }
 }
