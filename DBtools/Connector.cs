@@ -165,6 +165,15 @@ namespace DBtools
 
             return dictionary;
         }
+        public void UploadPhoto(byte[] image, int id, string field, string table)
+        {
+            string cmd = $"UPDATE {table} SET {field}=@image WHERE {GetPrimaryKeyColumn(table)}={id}";
+            SqlCommand command = new SqlCommand(cmd, connection);
+            command.Parameters.Add("@image", SqlDbType.VarBinary).Value = image;
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 }
 

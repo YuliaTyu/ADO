@@ -124,6 +124,7 @@ namespace Academy
         {
             StudentForm form = new StudentForm();
             form.ShowDialog();
+            tabControl_SelectedIndexChanged(tabControl, null);
         }
     }
 }

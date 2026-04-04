@@ -16,5 +16,12 @@ namespace Academy
         {
             InitializeComponent();
         }
+
+        private void pictureBoxPhoto_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog photoDialog = new OpenFileDialog();
+            photoDialog.ShowDialog();
+            pictureBoxPhoto.Image = Image.FromFile(photoDialog.FileName);
+        }
     }
 }
